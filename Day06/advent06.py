@@ -1,14 +1,11 @@
 with open('input.txt') as f:
     lines = f.readlines()
 
-for idx, _ in enumerate(lines[0], start = 4):
-  items = set(lines[0][idx-4:idx])
-  if len(items) == 4:
-    break
-print(idx)
+def find_start(text, length):
+  for idx, _ in enumerate(text, start = length):
+    items = set(text[idx-length:idx])
+    if len(items) == length:
+      return idx
 
-for idx, _ in enumerate(lines[0], start = 14):
-  items = set(lines[0][idx-14:idx])
-  if len(items) == 14:
-    break
-print(idx)
+print(find_start(lines[0], 4))
+print(find_start(lines[0], 14))
