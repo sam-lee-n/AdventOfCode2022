@@ -46,14 +46,7 @@ while (location != '/'):
 #     print(key, ' : ', value)
 
 print('Part 1' , sum(v for v in folder.values() if v <= 100000))
+
 spacefree = 70000000 - folder['/']
 needSpace = 30000000 - spacefree
-
-delete = []
-for key, value in folder.items():
-    if value >= needSpace:
-      delete.append(value)
-
-print('Part 2', min(delete))
-
-
+print('Part 1' , min(v for v in folder.values() if v >= needSpace))
