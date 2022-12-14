@@ -1,4 +1,5 @@
 import re
+from functools import reduce
 
 with open('input.txt') as f:
     lines = f.readlines()
@@ -22,10 +23,13 @@ for x, line in enumerate(lines):
 
         forest[num] = [items, operation, test]
 
-management = 3
-# print(forest)
-# print(len(forest))
-for cycle in range(20):
+allTest = []
+for monkey in range(len(forest)):
+    allTest.append(forest[monkey][2][0])
+allTest = reduce(lambda x, y: x*y, allTest)
+
+management = 1
+for cycle in range(10000):
     for monkey in range(len(forest)):
         while(forest[monkey][0]):
             item = forest[monkey][0].pop(0)
@@ -40,21 +44,15 @@ for cycle in range(20):
                 worry = (item * item) // management
 
             if worry %  forest[monkey][2][0] == 0:
-                forest[forest[monkey][2][1]][0].append(worry)
+                forest[forest[monkey][2][1]][0].append(worry % allTest)
             else:
-                forest[forest[monkey][2][2]][0].append(worry)
+                forest[forest[monkey][2][2]][0].append(worry % allTest)
             
             if monkey in ans:
                 ans[monkey] += 1
             else:
                 ans[monkey] = 1
             
-    #         if monkey == 2:
-    #             print(monkey, item, num, worry, (item * item) // 3, forest[monkey][1][1].isdigit())
-
-    # if cycle % 100:
-    #     print(forest)
-    # print(cycle, ans)
 
 print(ans)
 sortedAns = [value for value in ans.values()]
